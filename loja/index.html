@@ -1133,7 +1133,7 @@
 </div>
 <div class="grid grid-cols-2 gap-2.5 md:grid-cols-4 md:gap-4">
 <div class="relative">
-<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1g:" >
+<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1g:" onclick="handleOfferClick(event, this)">
 <div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
 <img alt="Tarjeta Semanal" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/ass_semanal.png"/>
 </div>
@@ -1161,7 +1161,7 @@
 </div>
 </div>
 <div class="relative">
-<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1i:" >
+<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1i:" onclick="handleOfferClick(event, this)">
 <div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
 <img alt="Tarjeta Mensual" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/ass_mensal.png"/>
 </div>
@@ -1189,7 +1189,7 @@
 </div>
 </div>
 <div class="relative">
-<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1k:" >
+<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1k:" onclick="handleOfferClick(event, this)">
 <div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
 <img alt="Pase Booyah Premium Plus" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/logo (4).png"/>
 </div>
@@ -1218,7 +1218,7 @@
 </div>
 <!-- Conjunto Rey Sinfonía Explosiva -->
 <div class="relative">
-<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1m:" >
+<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1m:" onclick="handleOfferClick(event, this)">
 <div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
 <img alt="Conjunto Rey Sinfonía Explosiva" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/logo (2).png"/>
 </div>
@@ -1243,7 +1243,7 @@
 </div>
 <!-- Conjunto Reina Melodía Explosiva -->
 <div class="relative">
-<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1o:" >
+<div class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border" id="custom-offer-:r1o:" onclick="handleOfferClick(event, this)">
 <div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
 <img alt="Conjunto Reina Melodía Explosiva" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/logo (3).png"/>
 </div>
@@ -1788,9 +1788,18 @@
             // Objeto para rastrear MÚLTIPLAS ofertas selecionadas
             const selectedOffers = {};
 
-            // Estado atual da seleção
+            // Variável única para oferta selecionada
             let selectedDiamond = null;
             let selectedOffer = null;
+
+            // Função chamada pelo onclick inline - burla o React
+            function handleOfferClick(event, element) {
+                if (event.target.closest('.info-icon')) return;
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                event.preventDefault();
+                toggleOffer(element);
+            }
 
             // Função para formatar preço em Dólar
             function formatPrice(value) {
@@ -1818,11 +1827,11 @@
                     diamondBonus.style.display = 'none';
                 }
 
-                // Calcula o total (diamantes + TODAS as ofertas especiais selecionadas)
+                // Calcula o total (diamantes + oferta especial se houver)
                 let total = selectedDiamond.price;
-                Object.values(selectedOffers).forEach(function(o) {
-                    total += o.price;
-                });
+                if (selectedOffer) {
+                    total += selectedOffer.price;
+                }
 
                 totalPrice.textContent = formatPrice(total);
                 purchaseBar.style.display = 'flex';
@@ -1848,26 +1857,29 @@
                 updatePurchaseBar();
             }
 
-            // Função para selecionar/desmarcar oferta especial (TOGGLE independente)
+            // TOGGLE: seleciona uma oferta por vez. Clicar novamente desmarca.
             function toggleOffer(element) {
                 const offerKey = element.id.replace('custom-offer-', '');
                 const offer = specialOffers[offerKey];
-
                 if (!offer) return;
 
-                if (selectedOffers[offerKey]) {
-                    // Já está selecionada — DESMARCA
-                    delete selectedOffers[offerKey];
+                if (selectedOffer && selectedOffer.key === offerKey) {
+                    // Mesma oferta clicada - DESMARCA
+                    selectedOffer = null;
                     element.classList.remove('selected');
-                    element.setAttribute('aria-checked', 'false');
                     element.style.outline = '';
                     element.style.outlineOffset = '';
                     element.style.backgroundColor = '';
                 } else {
-                    // Não está selecionada — SELECIONA
-                    selectedOffers[offerKey] = offer;
+                    // Nova oferta - desmarca anterior e SELECIONA esta
+                    document.querySelectorAll('[id^="custom-offer-"]').forEach(function(el) {
+                        el.classList.remove('selected');
+                        el.style.outline = '';
+                        el.style.outlineOffset = '';
+                        el.style.backgroundColor = '';
+                    });
+                    selectedOffer = { key: offerKey, name: offer.name, price: offer.price };
                     element.classList.add('selected');
-                    element.setAttribute('aria-checked', 'true');
                     element.style.outline = '2px solid #e41e26';
                     element.style.outlineOffset = '-2px';
                     element.style.backgroundColor = '#242535';
