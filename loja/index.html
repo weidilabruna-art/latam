@@ -1099,13 +1099,9 @@
                                                         2
                                                     </div>
 </div>
-                                                Valor de recarga
+                                                Monto de recarga
                                             </div>
-<div aria-orientation="horizontal" class="my-4 flex flex-wrap gap-3" role="tablist">
-<button aria-selected="true" class="min-w-[72px] rounded-full bg-bg-unselected px-3 py-2 text-sm/none font-medium outline outline-1 -outline-offset-1 outline-box-border ui-selected:bg-transparent ui-selected:text-text-selection ui-selected:outline-2 ui-selected:-outline-offset-2 ui-selected:outline-primary-red" data-headlessui-state="selected" id="headlessui-tabs-tab-:ru:" role="tab" tabindex="0" type="button">
-                                                    Comprar
-                                                </button>
-</div>
+
 <div class="flex flex-col gap-4" id="headlessui-radiogroup-:rc:" role="radiogroup">
 <div class="flex flex-col empty:hidden" role="none">
 <div class="flex flex-col gap-4 empty:hidden" role="none">
@@ -1240,6 +1236,42 @@
 </div>
 </div>
 <div aria-checked="false" class="absolute inset-0 hidden cursor-pointer peer-aria-checked:block" data-headlessui-state="" id="headlessui-radiogroup-option-:r1l:" role="radio">
+</div>
+</div>
+<!-- Conjunto Rey Sinfonía Explosiva -->
+<div class="relative">
+<div aria-checked="false" class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-bg-selected ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red" data-headlessui-state="" id="headlessui-radiogroup-option-:r1m:" role="radio" tabindex="-1">
+<div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
+<img alt="Conjunto Rey Sinfonía Explosiva" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/conjunto rim.png"/>
+</div>
+<div class="flex items-center gap-1">
+<div class="line-clamp-2 text-center text-sm/[18px] font-medium group-aria-disabled:opacity-[.45]">
+                                                                                Conjunto Rey Sinfonía Explosiva
+                                                                            </div>
+</div>
+<div style="text-align:center; margin-top:4px;">
+<span style="font-size:13px; font-weight:700; color:#D81A0D;">R$ 24,99</span>
+</div>
+</div>
+<div aria-checked="false" class="absolute inset-0 hidden cursor-pointer peer-aria-checked:block" data-headlessui-state="" id="headlessui-radiogroup-option-:r1n:" role="radio">
+</div>
+</div>
+<!-- Conjunto Reina Melodía Explosiva -->
+<div class="relative">
+<div aria-checked="false" class="group peer relative flex h-full cursor-pointer flex-col items-center rounded-md bg-bg-unselected p-1.5 pb-2 outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-bg-selected ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red" data-headlessui-state="" id="headlessui-radiogroup-option-:r1o:" role="radio" tabindex="-1">
+<div class="relative mb-2 w-full overflow-hidden rounded-sm pt-[56.25%]">
+<img alt="Conjunto Reina Melodía Explosiva" class="pointer-events-none absolute inset-0 h-full w-full object-cover group-aria-disabled:opacity-[.45]" src="images/calcaangelica.png"/>
+</div>
+<div class="flex items-center gap-1">
+<div class="line-clamp-2 text-center text-sm/[18px] font-medium group-aria-disabled:opacity-[.45]">
+                                                                                Conjunto Reina Melodía Explosiva
+                                                                            </div>
+</div>
+<div style="text-align:center; margin-top:4px;">
+<span style="font-size:13px; font-weight:700; color:#D81A0D;">R$ 24,99</span>
+</div>
+</div>
+<div aria-checked="false" class="absolute inset-0 hidden cursor-pointer peer-aria-checked:block" data-headlessui-state="" id="headlessui-radiogroup-option-:r1p:" role="radio">
 </div>
 </div>
 </div>
@@ -1740,7 +1772,9 @@
             const specialOffers = {
                 ':r1g:': { name: 'Suscripción Semanal', price: 8.99 },
                 ':r1i:': { name: 'Suscripción Mensual', price: 19.99 },
-                ':r1k:': { name: 'Pase Booyah Premium Plus', price: 14.99 }
+                ':r1k:': { name: 'Pase Booyah Premium Plus', price: 14.99 },
+                ':r1m:': { name: 'Conjunto Rey Sinfonía Explosiva', price: 24.99 },
+                ':r1o:': { name: 'Conjunto Reina Melodía Explosiva', price: 24.99 }
             };
 
             // Estado atual da seleção
@@ -1822,7 +1856,7 @@
                     }
 
                     // Deseleciona oferta anterior se houver
-                    document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"]').forEach(el => {
+                    document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"], [id*=":r1m:"], [id*=":r1o:"]').forEach(el => {
                         if (el.id.includes('radiogroup-option')) {
                             el.setAttribute('aria-checked', 'false');
                             el.classList.remove('selected');
@@ -1870,7 +1904,7 @@
             });
 
             // Configurar seleção de ofertas especiais (order bump)
-            const offerItems = document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"]');
+            const offerItems = document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"], [id*=":r1m:"], [id*=":r1o:"]');
             offerItems.forEach(item => {
                 if (item.id.includes('radiogroup-option')) {
                     item.addEventListener('click', function (e) {
