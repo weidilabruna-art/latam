@@ -1,4 +1,4 @@
-﻿<html data-rh="lang,dir" class="dark" dir="ltr" lang="pt">
+<html data-rh="lang,dir" class="dark" dir="ltr" lang="pt">
 <head>
 <meta charset="utf-8"/>
 <!-- TikTok Pixel Code Start -->
@@ -1785,6 +1785,8 @@
                 ':r1m:': { name: 'Conjunto Rey Sinfonía Explosiva', price: 4.99 },
                 ':r1o:': { name: 'Conjunto Reina Melodía Explosiva', price: 4.99 }
             };
+            // Objeto para rastrear MÚLTIPLAS ofertas selecionadas
+            const selectedOffers = {};
 
             // Estado atual da seleção
             let selectedDiamond = null;
@@ -1816,11 +1818,11 @@
                     diamondBonus.style.display = 'none';
                 }
 
-                // Calcula o total (diamantes + oferta especial se houver)
+                // Calcula o total (diamantes + TODAS as ofertas especiais selecionadas)
                 let total = selectedDiamond.price;
-                if (selectedOffer) {
-                    total += selectedOffer.price;
-                }
+                Object.values(selectedOffers).forEach(function(o) {
+                    total += o.price;
+                });
 
                 totalPrice.textContent = formatPrice(total);
                 purchaseBar.style.display = 'flex';
@@ -1846,44 +1848,31 @@
                 updatePurchaseBar();
             }
 
-            // Função para selecionar oferta especial (não permite deselecionar)
+            // Função para selecionar/desmarcar oferta especial (TOGGLE independente)
             function toggleOffer(element) {
                 const offerKey = element.id.replace('custom-offer-', '');
                 const offer = specialOffers[offerKey];
 
-                if (offer) {
-                    // Se clicar novamente na assinatura selecionada, desmarca
-                    if (selectedOffer && selectedOffer.name === offer.name) {
-                        selectedOffer = null;
-                        element.setAttribute('aria-checked', 'false');
-                        element.classList.remove('selected');
-                        element.style.outline = '';
-                        element.style.outlineOffset = '';
-                        element.style.backgroundColor = '';
-                        updatePurchaseBar();
-                        return;
-                    }
+                if (!offer) return;
 
-                    // Deseleciona oferta anterior se houver
-                    document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"], [id*=":r1m:"], [id*=":r1o:"]').forEach(el => {
-                        if (el.id.includes('radiogroup-option')) {
-                            el.setAttribute('aria-checked', 'false');
-                            el.classList.remove('selected');
-                            el.style.outline = '';
-                            el.style.outlineOffset = '';
-                            el.style.backgroundColor = '';
-                        }
-                    });
-                    // Seleciona a nova oferta
-                    selectedOffer = offer;
-                    element.setAttribute('aria-checked', 'true');
+                if (selectedOffers[offerKey]) {
+                    // Já está selecionada — DESMARCA
+                    delete selectedOffers[offerKey];
+                    element.classList.remove('selected');
+                    element.setAttribute('aria-checked', 'false');
+                    element.style.outline = '';
+                    element.style.outlineOffset = '';
+                    element.style.backgroundColor = '';
+                } else {
+                    // Não está selecionada — SELECIONA
+                    selectedOffers[offerKey] = offer;
                     element.classList.add('selected');
+                    element.setAttribute('aria-checked', 'true');
                     element.style.outline = '2px solid #e41e26';
                     element.style.outlineOffset = '-2px';
-                    element.style.backgroundColor = 'transparent';
-
-                    updatePurchaseBar();
+                    element.style.backgroundColor = '#242535';
                 }
+                updatePurchaseBar();
             }
 
             // Configurar seleção de diamantes
@@ -2313,16 +2302,21 @@
 #region-grid::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-.dark [id*="headlessui-radiogroup-option"].selected,
-.dark [id*="headlessui-radiogroup-option"][aria-checked="true"] {
+.dark [id*="custom-offer"].selected,
+.dark [id*="custom-offer"][aria-checked="true"] {
     background-color: #242535 !important;
     border: 2px solid #e41e26 !important;
     outline: 2px solid #e41e26 !important;
     outline-offset: -2px !important;
     color: #ffffff !important;
 }
-.dark [id*="headlessui-radiogroup-option"] span {
+.dark [id*="custom-offer"] span {
     color: #ffffff !important;
+}
+[id*="custom-offer"].selected {
+    outline: 2px solid #e41e26 !important;
+    outline-offset: -2px !important;
+    background-color: #242535 !important;
 }
 </style>
 
