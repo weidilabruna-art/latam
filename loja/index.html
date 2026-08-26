@@ -1,4 +1,4 @@
-﻿<html data-rh="lang,dir" class="dark" dir="ltr" lang="pt">
+<html data-rh="lang,dir" class="dark" dir="ltr" lang="pt">
 <head>
 <meta charset="utf-8"/>
 <!-- TikTok Pixel Code Start -->
@@ -1271,7 +1271,7 @@
 </div>
 </div>
 </div>
-<div class="flex flex-col" id="headlessui-radiogroup-:rd:" role="radiogroup">
+<div class="flex flex-col" id="headlessui-radiogroup-:rd:" role="radiogroup" style="display: none;">
 <div class="mt-6 md:mt-8 mb-3 flex scroll-mt-36 items-center gap-2 text-lg/none font-bold text-text-title md:text-xl/none" id="channel-section" role="none">
 <div class="grid items-center" data-marker="true" role="none">
 <svg class="col-start-1 row-start-1 text-2xl text-primary-red" fill="none" height="1em" role="none" viewbox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -1353,12 +1353,12 @@
 </div>
 <button class="inline-flex items-center justify-center gap-1.5 rounded-md border py-1 text-center leading-none transition-colors border-primary-red bg-primary-red text-white hover:bg-primary-red-hover hover:border-primary-red-hover px-5 text-base font-bold h-11" onclick="goToCheckout()">
 <span class="text-lg h-[18px] w-[18px]">
-<svg fill="none" height="1em" viewbox="0 0 80 80" width="1em" xmlns="http://www.w3.org/2000/svg">
-<path d="M54.125 34.1211C55.2966 32.9495 55.2966 31.05 54.125 29.8784C52.9534 28.7069 51.0539 28.7069 49.8823 29.8784L38.0037 41.7571L32.125 35.8784C30.9534 34.7069 29.0539 34.7069 27.8823 35.8784C26.7108 37.05 26.7108 38.9495 27.8823 40.1211L35.8823 48.1211C37.0539 49.2926 38.9534 49.2926 40.125 48.1211L54.125 34.1211Z" fill="currentColor"></path>
-<path clip-rule="evenodd" d="M43.4187 3.4715C41.2965 2.28554 38.711 2.28554 36.5889 3.4715L8.07673 19.4055C6.19794 20.4555 4.97252 22.4636 5.02506 24.7075C5.36979 39.43 10.1986 63.724 37.0183 76.9041C38.8951 77.8264 41.1125 77.8264 42.9893 76.9041C69.809 63.724 74.6377 39.43 74.9825 24.7075C75.035 22.4636 73.8096 20.4555 71.9308 19.4055L43.4187 3.4715ZM39.5159 8.7091C39.8191 8.53968 40.1885 8.53968 40.4916 8.7091L68.9826 24.6313C68.6493 38.3453 64.2154 59.7875 40.343 71.5192C40.135 71.6214 39.8725 71.6214 39.6646 71.5192C15.7921 59.7875 11.3583 38.3453 11.025 24.6313L39.5159 8.7091Z" fill="currentColor" fill-rule="evenodd"></path>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  <path d="m9 12 2 2 4-4"></path>
 </svg>
 </span>
-                            Compre agora
+                            Comprar ahora
                         </button>
 </div>
 </div>
@@ -1911,6 +1911,12 @@
                     });
                 }
             });
+            // Clonar o container das ofertas para remover event listeners do React que impedem desmarcar
+            const offersContainer = document.querySelector('.grid.grid-cols-2.gap-2\\.5.md\\:grid-cols-4.md\\:gap-4');
+            if (offersContainer) {
+                const clone = offersContainer.cloneNode(true);
+                offersContainer.parentNode.replaceChild(clone, offersContainer);
+            }
 
             // Configurar seleção de ofertas especiais (order bump)
             const offerItems = document.querySelectorAll('[id*=":r1g:"], [id*=":r1i:"], [id*=":r1k:"], [id*=":r1m:"], [id*=":r1o:"]');
