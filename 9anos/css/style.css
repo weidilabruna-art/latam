@@ -1,0 +1,588 @@
+/* ==========================================
+   9 ANOS DE FREE FIRE - ESTILOS OFICIAIS
+   Tema oficial Aniversario 9 Anos Free Fire
+   ========================================== */
+
+/* Reset e Variáveis - Cores 9 Anos Free Fire */
+:root {
+    /* Cores principais - Laranja Fogo + Dourado (Aniversario) */
+    --ff-primary: #FF6B00;
+    --ff-primary-dark: #C2410C;
+    --ff-accent: #FFD700;
+
+    /* Cores legadas para compatibilidade */
+    --ff-orange: #FFD700;
+    --ff-yellow: #FFD700;
+    --ff-red: #FFD700;
+    --ff-dark: #000000;
+    --ff-darker: #0D0602;
+    --ff-green: #22c55e;
+    --ff-cyan: #FF6B00;
+    --ff-purple: #FF6B00;
+    --ff-pink: #FFD700;
+
+    /* Cores de texto */
+    --text-white: #ffffff;
+    --text-white-60: rgba(255, 255, 255, 0.6);
+    --text-white-40: rgba(255, 255, 255, 0.4);
+    --text-dark: #0F172A;
+
+    /* Bordas e sombras */
+    --border-gold: #FFD700;
+    --shadow-gold: rgba(255, 215, 0, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: #000000;
+    min-height: 100%;
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ff-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--ff-primary), var(--ff-accent));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--ff-cyan), var(--ff-purple));
+}
+
+/* ==========================================
+   TIPOGRAFIA OFICIAL FREE FIRE
+   ========================================== */
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #0D0602 0%, #1A0A02 50%, #0D0602 100%);
+    background-attachment: fixed;
+    color: var(--text-white);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Títulos estilo FF */
+.ff-title {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.ff-title-decoration {
+    display: block;
+    width: 165px;
+    height: 9px;
+    margin-top: 1rem;
+    background: var(--ff-primary);
+    clip-path: polygon(0 0, 78.5% 0, 73.5% 100%, 0 100%);
+    position: relative;
+}
+
+.ff-title-decoration::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    background: var(--ff-primary);
+}
+
+/* Botão estilo oficial FF */
+.ff-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--ff-primary);
+    color: var(--ff-primary);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ff-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--ff-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.ff-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.ff-btn:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* Botão primário estilo FF */
+.ff-btn-primary {
+    background: linear-gradient(135deg, var(--ff-primary) 0%, var(--ff-accent) 100%);
+    border: none;
+    color: #ffffff;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px var(--shadow-gold), 0 0 30px rgba(255, 107, 0, 0.2);
+}
+
+.ff-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px var(--shadow-gold), 0 0 50px rgba(194, 65, 12, 0.4);
+    background: linear-gradient(135deg, #FF6B00 0%, #FFD700 100%);
+}
+
+/* Decoração de linha diagonal (estilo FF oficial) */
+.ff-diagonal-line {
+    position: relative;
+}
+
+.ff-diagonal-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--ff-primary);
+}
+
+/* Seção com decoração FF */
+.ff-section {
+    position: relative;
+    padding: 4rem 0;
+}
+
+.ff-section-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    overflow: hidden;
+}
+
+.ff-section-decoration svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Card estilo FF oficial */
+.ff-card {
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 6, 23, 0.95) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ff-card:hover {
+    border-color: var(--ff-primary);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15), 0 0 40px rgba(255, 107, 0, 0.1);
+}
+
+/* Container estilo FF */
+.ff-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Logo SVG oficial FF (usado no site) */
+.ff-logo {
+    fill: var(--ff-primary);
+    transition: fill 0.3s ease;
+}
+
+.ff-logo:hover {
+    fill: var(--text-white);
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 107, 0, 0.5),
+                     0 0 40px rgba(255, 107, 0, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 40px rgba(255, 107, 0, 0.8),
+                     0 0 60px rgba(255, 107, 0, 0.5);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-pulse-custom {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Banner Gradient */
+.banner-gradient {
+    background: linear-gradient(135deg, 
+        rgba(220, 38, 38, 0.3) 0%, 
+        rgba(255, 107, 0, 0.2) 50%, 
+        rgba(255, 215, 0, 0.1) 100%);
+}
+
+/* Christmas Pattern */
+.christmas-pattern {
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 80% 80%, rgba(255, 107, 0, 0.1) 2px, transparent 2px),
+        radial-gradient(circle at 40% 60%, rgba(220, 38, 38, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    width: 100%;
+    height: 100%;
+}
+
+/* Snow Container */
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    color: white;
+    font-size: 1rem;
+    animation: snowfall linear infinite;
+    opacity: 0.8;
+}
+
+/* Card Hover Effects */
+.step-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.step-card:hover::before {
+    left: 100%;
+}
+
+/* Prize Cards */
+.prize-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.prize-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.prize-card:hover::after {
+    transform: translateX(100%);
+}
+
+/* Quiz Styles */
+.quiz-option {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.quiz-option:hover {
+    transform: translateX(10px);
+    border-color: var(--ff-yellow);
+}
+
+.quiz-option.selected {
+    background: linear-gradient(90deg, var(--ff-orange), var(--ff-yellow));
+    color: var(--ff-dark);
+}
+
+.quiz-option.correct {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    color: white;
+    border-color: #22c55e;
+}
+
+.quiz-option.incorrect {
+    background: linear-gradient(90deg, #dc2626, #b91c1c);
+    color: white;
+    border-color: #dc2626;
+}
+
+/* Roleta Styles - Base apenas */
+.roulette-wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.roulette-segment {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 50%;
+    top: 0;
+    transform-origin: 0% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0% 100%, 100% 0%, 0% 0%);
+}
+
+.roulette-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--ff-primary), var(--ff-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5),
+                0 0 0 4px var(--ff-dark);
+    z-index: 100;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+.roulette-center:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.roulette-pointer {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 30px solid var(--ff-primary);
+    z-index: 20;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+/* Prize Modal */
+.prize-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.prize-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.prize-modal-content {
+    background: linear-gradient(135deg, var(--ff-dark), var(--ff-darker));
+    border: 2px solid var(--ff-primary);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.prize-modal.active .prize-modal-content {
+    transform: scale(1);
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 8px;
+    background: var(--ff-dark);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ff-orange), var(--ff-yellow));
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: linear-gradient(90deg, var(--ff-primary), var(--ff-accent));
+    color: #ffffff;
+    font-weight: bold;
+    padding: 12px 28px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--ff-primary);
+    border: 2px solid var(--ff-primary);
+    padding: 12px 28px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.btn-secondary:hover {
+    background: var(--ff-primary);
+    color: var(--ff-dark);
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 3000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .roulette-center {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}

