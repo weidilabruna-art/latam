@@ -917,7 +917,7 @@
 <form action="https://recargaojogo.sbs/black/loja/index.php?utm_source=organic&amp;utm_campaign=&amp;utm_medium=&amp;utm_content=%3A%3AIwY2xjawSmLcpleHRuA2FlbQIxMABicmlkETFIcTRjdGVJb1MxbVV1Z1Q1c3J0YwZhcHBfaWQPNTQxNjM5NDkzODg5MDI1AAEekea31dmfefy2hHJ00sNWmD-DZtajGYyes9pc_Dnpb9vgNpXQYLsAEvdYEOM_aem_99JHLuGfu0KtC-Mgr42ryA%3A%3A&amp;utm_term=&amp;fbclid=IwY2xjawSmLcpleHRuA2FlbQIxMABicmlkETFIcTRjdGVJb1MxbVV1Z1Q1c3J0YwZhcHBfaWQPNTQxNjM5NDkzODg5MDI1AAEekea31dmfefy2hHJ00sNWmD-DZtajGYyes9pc_Dnpb9vgNpXQYLsAEvdYEOM_aem_99JHLuGfu0KtC-Mgr42ryA" class="mb-4 flex flex-col" id="login-form" onsubmit="handleLogin(event)">
 <label class="mb-2 flex items-center gap-1 text-[15px]/4 font-medium text-text-title" for=":rt:">
                                                             ID de jugador
-                                                            <button class="rounded-full text-sm outline-current transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" type="button">
+                                                            <button class="rounded-full text-sm outline-current transition-opacity hover:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" type="button" onclick="document.getElementById('ff-help-modal').classList.add('active')">
 <svg fill="none" height="1em" viewbox="0 0 14 14" width="1em" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_489_1601)">
 <path d="M4.8999 5.39848C4.89981 4.44579 5.67209 3.67344 6.62478 3.67344H7.37471C8.33038 3.67344 9.09977 4.45392 9.09971 5.40371C9.09967 6.05546 8.73195 6.65677 8.14619 6.94967L7.57416 7.23571C7.49793 7.27382 7.44978 7.35173 7.44978 7.43695V7.49844C7.44978 7.78839 7.21473 8.02344 6.92478 8.02344C6.63483 8.02344 6.39978 7.78839 6.39978 7.49844V7.43695C6.39978 6.95403 6.67262 6.51255 7.10456 6.29657L7.6766 6.01053C7.90385 5.8969 8.0497 5.66087 8.04971 5.40365C8.04973 5.0279 7.74459 4.72344 7.37471 4.72344H6.62478C6.25203 4.72344 5.94987 5.02563 5.9499 5.39838C5.94993 5.68833 5.7149 5.9234 5.42495 5.92343C5.135 5.92346 4.89993 5.68843 4.8999 5.39848Z" fill="currentColor">
@@ -936,6 +936,16 @@
 </svg>
 </button>
 </label>
+<!-- FF Help Modal -->
+<div id="ff-help-modal" style="display:none; position:fixed; inset:0; z-index:999999; background:rgba(0,0,0,0.75); align-items:center; justify-content:center;" onclick="if(event.target===this)this.classList.remove('active')">
+<div style="position:relative; max-width:90vw; max-height:90vh;">
+<button onclick="document.getElementById('ff-help-modal').classList.remove('active')" style="position:absolute; top:-14px; right:-14px; background:#e41e26; border:none; border-radius:50%; width:28px; height:28px; color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:1;">&times;</button>
+<img src="images/ff.jpg" alt="Como encontrar seu ID" style="max-width:90vw; max-height:85vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.8);"/>
+</div>
+</div>
+<style>
+#ff-help-modal.active { display:flex !important; }
+</style>
 <div class="flex">
 <div class="relative grow">
 <input autocomplete="off" class="form-input w-full bg-bg-unselected px-4 ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0" id="player-id-input" placeholder="Introduce el ID del jugador aquí." type="text" value=""/>
