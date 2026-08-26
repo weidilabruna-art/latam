@@ -1,4 +1,4 @@
-<html data-rh="lang,dir" dir="ltr" lang="pt">
+<html data-rh="lang,dir" class="dark" dir="ltr" lang="pt">
 <head>
 <meta charset="utf-8"/>
 <!-- TikTok Pixel Code Start -->
@@ -2173,6 +2173,275 @@
 </div>
 </div>
 </div>
+<!-- Custom Region/Language Selector Modal -->
+<style>
+.custom-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.custom-modal-backdrop.active {
+    display: flex;
+}
+.custom-modal-card {
+    background: #1e1f2b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    width: 95%;
+    max-width: 420px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.region-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #242535;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #e5e7eb;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+.region-btn:hover {
+    background: #2a2b3d;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+.region-btn.active {
+    background: #2a2b3d;
+    border-color: #e41e26;
+    color: #fff;
+}
+.region-btn img {
+    width: 18px;
+    height: 12px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+.region-btn svg {
+    width: 18px;
+    height: 18px;
+    color: #9ca3af;
+}
+/* Scrollbar custom style inside the region selector */
+#region-grid::-webkit-scrollbar {
+    width: 6px;
+}
+#region-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+#region-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+#region-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+</style>
+
+<div id="custom-region-modal-backdrop" class="custom-modal-backdrop">
+    <div class="custom-modal-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="margin:0; font-size:18px; font-weight:700; color:#fff;">Idioma y Región</h3>
+            <button id="custom-modal-close-btn" style="background:none; border:none; color:#9ca3af; font-size:20px; cursor:pointer;">&times;</button>
+        </div>
+        
+        <!-- Idioma Section -->
+        <div style="margin-bottom:20px;">
+            <div style="font-size:12px; font-weight:600; color:#9ca3af; text-transform:uppercase; margin-bottom:8px; letter-spacing:0.5px;">Idioma</div>
+            <div style="display:flex; gap:10px;">
+                <button class="lang-btn active" data-lang="ES" style="flex:1; background:#242535; border:1px solid #e41e26; border-radius:6px; color:#fff; padding:10px; font-weight:600; cursor:pointer; text-align:center;">ES</button>
+                <button class="lang-btn" data-lang="EN" style="flex:1; background:#242535; border:1px solid rgba(255,255,255,0.1); border-radius:6px; color:#9ca3af; padding:10px; font-weight:600; cursor:pointer; text-align:center;">EN</button>
+            </div>
+        </div>
+        
+        <!-- Región Section -->
+        <div style="margin-bottom:24px;">
+            <div style="font-size:12px; font-weight:600; color:#9ca3af; text-transform:uppercase; margin-bottom:8px; letter-spacing:0.5px;">Región</div>
+            <div id="region-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; max-height:220px; overflow-y:auto; padding-right:4px;">
+                <!-- Countries will be generated dynamically -->
+            </div>
+        </div>
+        
+        <!-- Save Button -->
+        <button id="custom-modal-save-btn" style="width:100%; background:#e41e26; border:none; border-radius:8px; color:#fff; padding:14px; font-size:16px; font-weight:700; cursor:pointer; transition:background 0.2s;">Save</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    // List of regions based on Pagostore
+    const regions = [
+        { name: "Argentina", code: "ar", flag: "https://flagcdn.com/w40/ar.png" },
+        { name: "Bolivia", code: "bo", flag: "https://flagcdn.com/w40/bo.png" },
+        { name: "Chile", code: "cl", flag: "https://flagcdn.com/w40/cl.png" },
+        { name: "Colombia", code: "co", flag: "https://flagcdn.com/w40/co.png" },
+        { name: "Costa Rica", code: "cr", flag: "https://flagcdn.com/w40/cr.png" },
+        { name: "República Dominicana", code: "do", flag: "https://flagcdn.com/w40/do.png" },
+        { name: "Ecuador", code: "ec", flag: "https://flagcdn.com/w40/ec.png" },
+        { name: "El Salvador", code: "sv", flag: "https://flagcdn.com/w40/sv.png" },
+        { name: "Guatemala", code: "gt", flag: "https://flagcdn.com/w40/gt.png" },
+        { name: "México", code: "mx", flag: "https://flagcdn.com/w40/mx.png" },
+        { name: "Nicaragua", code: "ni", flag: "https://flagcdn.com/w40/ni.png" },
+        { name: "Panamá", code: "pa", flag: "https://flagcdn.com/w40/pa.png" },
+        { name: "Paraguay", code: "py", flag: "https://flagcdn.com/w40/py.png" },
+        { name: "Perú", code: "pe", flag: "https://flagcdn.com/w40/pe.png" },
+        { name: "Resto de LATAM", code: "latam", isGlobe: true },
+        { name: "Uruguay", code: "uy", flag: "https://flagcdn.com/w40/uy.png" }
+    ];
+
+    let selectedLang = localStorage.getItem('selectedLang') || 'ES';
+    let selectedRegion = localStorage.getItem('selectedRegion') || 'Resto de LATAM';
+
+    const backdrop = document.getElementById('custom-region-modal-backdrop');
+    const closeBtn = document.getElementById('custom-modal-close-btn');
+    const saveBtn = document.getElementById('custom-modal-save-btn');
+    const regionGrid = document.getElementById('region-grid');
+    const langBtns = document.querySelectorAll('.lang-btn');
+
+    // Generate countries buttons inside grid
+    function renderRegions() {
+        regionGrid.innerHTML = '';
+        regions.forEach(r => {
+            const btn = document.createElement('button');
+            btn.className = `region-btn ${r.name === selectedRegion ? 'active' : ''}`;
+            btn.dataset.region = r.name;
+            
+            if (r.isGlobe) {
+                btn.innerHTML = `
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px; height:18px; color:#9ca3af; margin-right:8px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0a9 9 0 01-2.285-8.002 9 9 0 014.57 0A9 9 0 0112 21zM3 12h18"></path>
+                    </svg>
+                    <span>${r.name}</span>
+                `;
+            } else {
+                btn.innerHTML = `
+                    <img src="${r.flag}" alt="${r.name}"/>
+                    <span>${r.name}</span>
+                `;
+            }
+
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedRegion = r.name;
+            });
+            regionGrid.appendChild(btn);
+        });
+    }
+
+    // Set Language handler
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            langBtns.forEach(b => {
+                b.classList.remove('active');
+                b.style.borderColor = 'rgba(255,255,255,0.1)';
+                b.style.color = '#9ca3af';
+            });
+            btn.classList.add('active');
+            btn.style.borderColor = '#e41e26';
+            btn.style.color = '#fff';
+            selectedLang = btn.dataset.lang;
+        });
+    });
+
+    // Update region selector in Garena's Header
+    function updateGarenaHeaderButton() {
+        const elements = Array.from(document.querySelectorAll('header button, header div, header span, [class*="popover"] button'));
+        const targetBtn = elements.find(el => {
+            if (!el.textContent) return false;
+            const txt = el.textContent.trim();
+            return (txt.includes('LATAM') || txt.includes('Colombia') || txt.includes('México') || txt.includes('Argentina') || txt.includes('Chile') || txt.includes('Perú')) && txt.length < 30;
+        });
+
+        if (targetBtn) {
+            let textNodeFound = false;
+            
+            for (let node of targetBtn.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim().length > 0) {
+                    node.nodeValue = ` ${selectedRegion} ${selectedLang} `;
+                    textNodeFound = true;
+                    break;
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.textContent.trim().length > 0 && node.childNodes.length === 1 && node.firstChild.nodeType === Node.TEXT_NODE) {
+                    node.firstChild.nodeValue = ` ${selectedRegion} ${selectedLang} `;
+                    textNodeFound = true;
+                    break;
+                }
+            }
+
+            if (!textNodeFound) {
+                targetBtn.innerHTML = `
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px; height:16px; display:inline-block; vertical-align:-3px; margin-right:4px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0a9 9 0 01-2.285-8.002 9 9 0 014.57 0A9 9 0 0112 21zM3 12h18"></path>
+                    </svg>
+                    ${selectedRegion} ${selectedLang}
+                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" style="width:16px; height:16px; display:inline-block; vertical-align:-3px; margin-left:4px;">
+                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                    </svg>
+                `;
+            }
+
+            if (!targetBtn.dataset.customHandlerSet) {
+                targetBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    langBtns.forEach(b => {
+                        if (b.dataset.lang === selectedLang) {
+                            b.click();
+                        }
+                    });
+                    
+                    renderRegions();
+                    backdrop.classList.add('active');
+                }, true);
+                targetBtn.dataset.customHandlerSet = "true";
+            }
+        }
+    }
+
+    const observer = new MutationObserver((mutations) => {
+        updateGarenaHeaderButton();
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    closeBtn.addEventListener('click', () => {
+        backdrop.classList.remove('active');
+    });
+
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+            backdrop.classList.remove('active');
+        }
+    });
+
+    saveBtn.addEventListener('click', () => {
+        localStorage.setItem('selectedLang', selectedLang);
+        localStorage.setItem('selectedRegion', selectedRegion);
+        updateGarenaHeaderButton();
+        backdrop.classList.remove('active');
+    });
+
+    updateGarenaHeaderButton();
+})();
+</script>
+
 <!-- UTMify -->
 <script crossorigin="anonymous" data-cf-beacon="{" defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" version":"2024.11.0","token":"04724dc4e01b47459af393769bd8b3da","r":1,"server_timing":{"name":{"cfcachestatus":true,"cfedge":true,"cfextpri":true,"cfl4":true,"cforigin":true,"cfspeedbrain":true},"location_startswith":null}}"=""></script>
 </body>
