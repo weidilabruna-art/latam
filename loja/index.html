@@ -1102,7 +1102,7 @@
                                                 Valor de recarga
                                             </div>
 <div aria-orientation="horizontal" class="my-4 flex flex-wrap gap-3" role="tablist">
-<button aria-selected="true" class="min-w-[72px] rounded-full bg-bg-unselected px-3 py-2 text-sm/none font-medium outline outline-1 -outline-offset-1 outline-box-border ui-selected:bg-bg-selected ui-selected:text-text-selection ui-selected:outline-2 ui-selected:-outline-offset-2 ui-selected:outline-primary-red" data-headlessui-state="selected" id="headlessui-tabs-tab-:ru:" role="tab" tabindex="0" type="button">
+<button aria-selected="true" class="min-w-[72px] rounded-full bg-bg-unselected px-3 py-2 text-sm/none font-medium outline outline-1 -outline-offset-1 outline-box-border ui-selected:bg-transparent ui-selected:text-text-selection ui-selected:outline-2 ui-selected:-outline-offset-2 ui-selected:outline-primary-red" data-headlessui-state="selected" id="headlessui-tabs-tab-:ru:" role="tab" tabindex="0" type="button">
                                                     Comprar
                                                 </button>
 </div>
@@ -1111,7 +1111,7 @@
 <div class="flex flex-col gap-4 empty:hidden" role="none">
 <div class="grid grid-cols-3 gap-2.5 sm:grid-cols-4 md:grid-cols-6 md:gap-4 empty:hidden" role="none">
 <div class="relative">
-<div aria-checked="false" class="group peer relative flex min-h-[50px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-bg-unselected outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-bg-selected ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red sm:min-h-[64px] md:min-h-[72px]" data-headlessui-state="" id="headlessui-radiogroup-option-:r1a:" role="radio" tabindex="-1">
+<div aria-checked="false" class="group peer relative flex min-h-[50px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-bg-unselected outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-transparent ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red sm:min-h-[64px] md:min-h-[72px]" data-headlessui-state="" id="headlessui-radiogroup-option-:r1a:" role="radio" tabindex="-1">
 <div class="flex flex-1 items-center group-aria-disabled:opacity-[.45]">
 <img alt="Diamante" class="me-1 h-3 w-3 object-contain md:h-4 md:w-4" src="images/point.png"/>
 <span class="text-sm/none font-medium md:text-lg/none max-[350px]:text-xs/none">
@@ -1123,7 +1123,7 @@
 </div>
 </div>
 <div class="relative">
-<div aria-checked="false" class="group peer relative flex min-h-[50px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-bg-unselected outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-bg-selected ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red sm:min-h-[64px] md:min-h-[72px]" data-headlessui-state="" id="headlessui-radiogroup-option-:r1c:" role="radio" tabindex="-1">
+<div aria-checked="false" class="group peer relative flex min-h-[50px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-bg-unselected outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-transparent ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red sm:min-h-[64px] md:min-h-[72px]" data-headlessui-state="" id="headlessui-radiogroup-option-:r1c:" role="radio" tabindex="-1">
 <div class="flex flex-1 items-center group-aria-disabled:opacity-[.45]">
 <img alt="Diamante" class="me-1 h-3 w-3 object-contain md:h-4 md:w-4" src="images/point.png"/>
 <span class="text-sm/none font-medium md:text-lg/none max-[350px]:text-xs/none">
@@ -1133,17 +1133,6 @@
 </div>
 <div aria-checked="false" class="absolute inset-0 hidden cursor-pointer peer-aria-checked:block" data-headlessui-state="" id="headlessui-radiogroup-option-:r1d:" role="radio">
 </div>
-</div>
-<div class="relative">
-<div aria-checked="false" class="group peer relative flex min-h-[50px] cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-bg-unselected outline outline-1 -outline-offset-1 outline-box-border ui-checked:bg-bg-selected ui-checked:outline-2 ui-checked:-outline-offset-2 ui-checked:outline-primary-red sm:min-h-[64px] md:min-h-[72px]" data-headlessui-state="" id="headlessui-radiogroup-option-:r1e:" role="radio" tabindex="-1">
-<div class="flex flex-1 items-center group-aria-disabled:opacity-[.45]">
-<img alt="Diamante" class="me-1 h-3 w-3 object-contain md:h-4 md:w-4" src="images/point.png"/>
-<span class="text-sm/none font-medium md:text-lg/none max-[350px]:text-xs/none">
-                                                                            22.400
-                                                                        </span>
-</div>
-</div>
-<div aria-checked="false" class="absolute inset-0 hidden cursor-pointer peer-aria-checked:block" data-headlessui-state="" id="headlessui-radiogroup-option-:r1f:" role="radio">
 </div>
 </div>
 </div>
@@ -1846,9 +1835,9 @@
                     selectedOffer = offer;
                     element.setAttribute('aria-checked', 'true');
                     element.classList.add('selected');
-                    element.style.outline = '2px solid #D81A0D';
+                    element.style.outline = '2px solid #e41e26';
                     element.style.outlineOffset = '-2px';
-                    element.style.backgroundColor = '#FFF4F4';
+                    element.style.backgroundColor = 'transparent';
 
                     updatePurchaseBar();
                 }
@@ -1872,9 +1861,9 @@
                         // Seleciona o clicado
                         this.setAttribute('aria-checked', 'true');
                         this.classList.add('selected');
-                        this.style.outline = '2px solid #D81A0D';
+                        this.style.outline = '2px solid #e41e26';
                         this.style.outlineOffset = '-2px';
-                        this.style.backgroundColor = '#FFF4F4';
+                        this.style.backgroundColor = 'transparent';
                         selectDiamond(this);
                     });
                 }
@@ -2274,6 +2263,17 @@
 }
 #region-grid::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+}
+.dark [id*="headlessui-radiogroup-option"].selected,
+.dark [id*="headlessui-radiogroup-option"][aria-checked="true"] {
+    background-color: #242535 !important;
+    border: 2px solid #e41e26 !important;
+    outline: 2px solid #e41e26 !important;
+    outline-offset: -2px !important;
+    color: #ffffff !important;
+}
+.dark [id*="headlessui-radiogroup-option"] span {
+    color: #ffffff !important;
 }
 </style>
 
