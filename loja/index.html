@@ -448,20 +448,6 @@
                         </div>
 </a>
 <div class="flex min-w-0 items-stretch gap-4 md:gap-[18px]">
-<!-- Region/Language selector button -->
-<div class="relative flex items-center" id="garena-region-wrapper">
-<button id="garena-region-btn" type="button" style="display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:#e5e7eb; padding:6px 12px; font-size:13px; font-weight:500; cursor:pointer; transition:background 0.2s; white-space:nowrap;">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:14px; height:14px; flex-shrink:0;">
-<path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
-</svg>
-<span id="garena-region-label">Resto de LATAM</span>
-<span style="width:1px; height:14px; background:rgba(255,255,255,0.25); margin:0 2px;"></span>
-<span id="garena-lang-label">ES</span>
-<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:12px; height:12px; flex-shrink:0; opacity:0.7;">
-<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
-</svg>
-</button>
-</div>
 <div class="relative flex items-center" data-headlessui-state="">
 <button aria-expanded="false" class="block rounded-full transition-opacity hover:opacity-70" data-headlessui-state="" id="headlessui-popover-button-:r0:" type="button">
 <div class="relative h-[30px] w-[30px]">
@@ -2301,15 +2287,15 @@
         { name: "Chile", code: "cl", flag: "https://flagcdn.com/w40/cl.png" },
         { name: "Colombia", code: "co", flag: "https://flagcdn.com/w40/co.png" },
         { name: "Costa Rica", code: "cr", flag: "https://flagcdn.com/w40/cr.png" },
-        { name: "República Dominicana", code: "do", flag: "https://flagcdn.com/w40/do.png" },
+        { name: "Rep\u00fablica Dominicana", code: "do", flag: "https://flagcdn.com/w40/do.png" },
         { name: "Ecuador", code: "ec", flag: "https://flagcdn.com/w40/ec.png" },
         { name: "El Salvador", code: "sv", flag: "https://flagcdn.com/w40/sv.png" },
         { name: "Guatemala", code: "gt", flag: "https://flagcdn.com/w40/gt.png" },
-        { name: "México", code: "mx", flag: "https://flagcdn.com/w40/mx.png" },
+        { name: "M\u00e9xico", code: "mx", flag: "https://flagcdn.com/w40/mx.png" },
         { name: "Nicaragua", code: "ni", flag: "https://flagcdn.com/w40/ni.png" },
-        { name: "Panamá", code: "pa", flag: "https://flagcdn.com/w40/pa.png" },
+        { name: "Panam\u00e1", code: "pa", flag: "https://flagcdn.com/w40/pa.png" },
         { name: "Paraguay", code: "py", flag: "https://flagcdn.com/w40/py.png" },
-        { name: "Perú", code: "pe", flag: "https://flagcdn.com/w40/pe.png" },
+        { name: "Per\u00fa", code: "pe", flag: "https://flagcdn.com/w40/pe.png" },
         { name: "Resto de LATAM", code: "latam", isGlobe: true },
         { name: "Uruguay", code: "uy", flag: "https://flagcdn.com/w40/uy.png" }
     ];
@@ -2322,23 +2308,63 @@
     const saveBtn = document.getElementById('custom-modal-save-btn');
     const regionGrid = document.getElementById('region-grid');
     const langBtns = document.querySelectorAll('.lang-btn');
-    const regionBtn = document.getElementById('garena-region-btn');
-    const regionLabel = document.getElementById('garena-region-label');
-    const langLabel = document.getElementById('garena-lang-label');
 
-    // Update header button labels from localStorage
-    function updateHeaderLabels() {
-        if (regionLabel) regionLabel.textContent = selectedRegion;
-        if (langLabel) langLabel.textContent = selectedLang;
-    }
+    // PIN icon SVG
+    const PIN_SVG = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>`;
+    const CHEVRON_SVG = `<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:12px;height:12px;flex-shrink:0;opacity:0.7;"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>`;
 
-    // Position card below the trigger button
-    function positionCard() {
-        if (!regionBtn || !card) return;
-        const rect = regionBtn.getBoundingClientRect();
+    function openDropdown(triggerBtn) {
+        langBtns.forEach(b => { if (b.dataset.lang === selectedLang) b.click(); });
+        renderRegions();
+        // Position card below the trigger button
+        const rect = triggerBtn.getBoundingClientRect();
         card.style.top = (rect.bottom + 6) + 'px';
         card.style.right = (window.innerWidth - rect.right) + 'px';
         card.style.left = 'auto';
+        backdrop.classList.add('active');
+    }
+
+    // Inject our custom button into header, hiding Garena's globe button
+    function injectHeaderBtn() {
+        if (document.getElementById('garena-region-btn')) return; // already injected
+
+        // Find Garena's region button (the one with globe icon or LATAM text)
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        // Find the flex container on the right of the header
+        const rightFlex = header.querySelector('.flex.min-w-0.items-stretch');
+        if (!rightFlex) return;
+
+        // Build our button
+        const wrapper = document.createElement('div');
+        wrapper.className = 'relative flex items-center';
+        wrapper.id = 'garena-region-wrapper';
+
+        const btn = document.createElement('button');
+        btn.id = 'garena-region-btn';
+        btn.type = 'button';
+        btn.style.cssText = 'display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#e5e7eb;padding:6px 12px;font-size:13px;font-weight:500;cursor:pointer;transition:background 0.2s;white-space:nowrap;';
+        btn.innerHTML = `${PIN_SVG}<span id="garena-region-label">${selectedRegion}</span><span style="width:1px;height:14px;background:rgba(255,255,255,0.25);margin:0 2px;"></span><span id="garena-lang-label">${selectedLang}</span>${CHEVRON_SVG}`;
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openDropdown(btn);
+        });
+
+        wrapper.appendChild(btn);
+
+        // Hide Garena's original globe/region button
+        const garenaGlobeBtn = Array.from(header.querySelectorAll('button')).find(el => {
+            const txt = el.textContent.trim();
+            return (txt.includes('LATAM') || txt.includes('Colombia') || txt.includes('Argentina')) && txt.length < 40;
+        });
+        if (garenaGlobeBtn) {
+            garenaGlobeBtn.closest('.relative') ? garenaGlobeBtn.closest('.relative').style.display = 'none' : garenaGlobeBtn.style.display = 'none';
+        }
+
+        // Insert before the avatar button (first child of rightFlex)
+        rightFlex.insertBefore(wrapper, rightFlex.firstChild);
     }
 
     // Generate country buttons
@@ -2377,20 +2403,6 @@
         });
     });
 
-    // Open dropdown on header button click
-    if (regionBtn) {
-        regionBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            // Sync lang buttons with current selection
-            langBtns.forEach(b => {
-                if (b.dataset.lang === selectedLang) b.click();
-            });
-            renderRegions();
-            positionCard();
-            backdrop.classList.add('active');
-        });
-    }
-
     // Close on backdrop click (outside the card)
     backdrop.addEventListener('click', e => {
         if (!card.contains(e.target)) backdrop.classList.remove('active');
@@ -2400,12 +2412,21 @@
     saveBtn.addEventListener('click', () => {
         localStorage.setItem('selectedLang', selectedLang);
         localStorage.setItem('selectedRegion', selectedRegion);
-        updateHeaderLabels();
+        const rl = document.getElementById('garena-region-label');
+        const ll = document.getElementById('garena-lang-label');
+        if (rl) rl.textContent = selectedRegion;
+        if (ll) ll.textContent = selectedLang;
         backdrop.classList.remove('active');
     });
 
-    // Init header labels
-    updateHeaderLabels();
+    // Watch for React to render the header, then inject our button
+    const observer = new MutationObserver(() => {
+        injectHeaderBtn();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Also try immediately in case header is already rendered
+    injectHeaderBtn();
 })();
 </script>
 
