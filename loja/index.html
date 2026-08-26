@@ -483,18 +483,15 @@
 <div class="bg-[#151515]">
 <div class="group mx-auto w-full max-w-[1366px] md:py-2.5 lg:py-5">
 <div class="relative flex justify-center pt-[43.478%] md:pt-[19.106%]">
-<div class="scrollbar-none absolute inset-0 flex overflow-auto snap-x snap-mandatory">
-<div class="block h-full w-full shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" data-index="2">
-<img class="pointer-events-none h-full w-full object-cover transition-all md:rounded-xl" src="images/26B06340B596B357.png"/>
+<div class="scrollbar-none absolute inset-0 flex overflow-auto snap-x snap-mandatory px-[9%] md:px-[15%] gap-3 md:gap-4">
+<div class="block h-full w-[82%] md:w-[70%] shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 transition-all duration-500 ease-out" data-index="0" style="opacity: 0.5; filter: brightness(0.5); transform: scale(0.95);">
+<img class="pointer-events-none h-full w-full object-cover transition-all duration-500 md:rounded-xl" src="images/21C3B896337420C6.png"/>
 </div>
-<div class="block h-full w-full shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" data-index="3">
-<img class="pointer-events-none h-full w-full object-cover transition-all md:rounded-xl" src="images/47BED91C7ABCF1EA.png"/>
+<div class="block h-full w-[82%] md:w-[70%] shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 transition-all duration-500 ease-out" data-index="1" style="opacity: 1; filter: brightness(1); transform: scale(1);">
+<img class="pointer-events-none h-full w-full object-cover transition-all duration-500 md:rounded-xl" src="images/01F22754C1619D9F.jpg"/>
 </div>
-<div class="block h-full w-full shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" data-index="0">
-<img class="pointer-events-none h-full w-full object-cover transition-all md:rounded-xl" src="images/6FAE33F6E97F3F4C.png"/>
-</div>
-<div class="block h-full w-full shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2" data-index="1">
-<img class="pointer-events-none h-full w-full object-cover transition-all md:rounded-xl" src="images/47C95AECB3BF44D6.jpg"/>
+<div class="block h-full w-[82%] md:w-[70%] shrink-0 snap-center md:rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 transition-all duration-500 ease-out" data-index="2" style="opacity: 0.5; filter: brightness(0.5); transform: scale(0.95);">
+<img class="pointer-events-none h-full w-full object-cover transition-all duration-500 md:rounded-xl" src="images/24-12-25-900x340FF.jpg"/>
 </div>
 </div>
 <div class="pointer-events-none absolute inset-y-0 hidden w-[21.783%] items-center md:flex start-0 justify-end">
@@ -514,11 +511,9 @@
 </button>
 </div>
 <div class="absolute bottom-2.5 flex gap-2 md:gap-3">
+<div aria-checked="false" class="h-1.5 w-1.5 cursor-pointer rounded-full bg-white/80 aria-checked:bg-primary-red md:h-2.5 md:w-2.5 md:bg-white/40 md:aria-checked:bg-[linear-gradient(209deg,#DA1C1C_-7.14%,#8C1515_102.95%)]">
+</div>
 <div aria-checked="true" class="h-1.5 w-1.5 cursor-pointer rounded-full bg-white/80 aria-checked:bg-primary-red md:h-2.5 md:w-2.5 md:bg-white/40 md:aria-checked:bg-[linear-gradient(209deg,#DA1C1C_-7.14%,#8C1515_102.95%)]">
-</div>
-<div aria-checked="false" class="h-1.5 w-1.5 cursor-pointer rounded-full bg-white/80 aria-checked:bg-primary-red md:h-2.5 md:w-2.5 md:bg-white/40 md:aria-checked:bg-[linear-gradient(209deg,#DA1C1C_-7.14%,#8C1515_102.95%)]">
-</div>
-<div aria-checked="false" class="h-1.5 w-1.5 cursor-pointer rounded-full bg-white/80 aria-checked:bg-primary-red md:h-2.5 md:w-2.5 md:bg-white/40 md:aria-checked:bg-[linear-gradient(209deg,#DA1C1C_-7.14%,#8C1515_102.95%)]">
 </div>
 <div aria-checked="false" class="h-1.5 w-1.5 cursor-pointer rounded-full bg-white/80 aria-checked:bg-primary-red md:h-2.5 md:w-2.5 md:bg-white/40 md:aria-checked:bg-[linear-gradient(209deg,#DA1C1C_-7.14%,#8C1515_102.95%)]">
 </div>
@@ -1934,15 +1929,15 @@
             if (!carouselContainer) return;
 
             const slides = carouselContainer.querySelectorAll('[data-index]');
-            const dots = document.querySelectorAll('[aria-checked]');
+            // Limitamos a busca de dots para o contêiner do carrossel para não interferir em outros aria-checked
+            const dots = carouselContainer.parentElement.querySelectorAll('[aria-checked]');
             const prevBtn = carouselContainer.parentElement.querySelector('button:first-of-type');
             const nextBtn = carouselContainer.parentElement.querySelector('button:last-of-type');
 
             // Configuração
-            const totalUniqueSlides = 4; // 4 banners únicos
-            let currentIndex = 0;
+            const totalUniqueSlides = 3; // 3 banners únicos
+            let currentIndex = 1; // Inicia no banner do meio (índice 1 - Kelly Bonus)
             let autoPlayInterval;
-            const slideWidth = 100; // porcentagem
 
             // Função para atualizar os dots
             function updateDots(index) {
@@ -1957,14 +1952,31 @@
                 if (currentIndex < 0) currentIndex = totalUniqueSlides - 1;
                 if (currentIndex >= totalUniqueSlides) currentIndex = 0;
 
-                // Scroll para o slide correto
+                // Scroll para o slide correto centralizando-o
                 const slideElement = carouselContainer.querySelector(`[data-index="${currentIndex}"]`);
                 if (slideElement) {
+                    const containerWidth = carouselContainer.clientWidth;
+                    const slideWidth = slideElement.clientWidth;
+                    const scrollToX = slideElement.offsetLeft - (containerWidth - slideWidth) / 2;
                     carouselContainer.scrollTo({
-                        left: slideElement.offsetLeft,
+                        left: scrollToX,
                         behavior: 'smooth'
                     });
                 }
+
+                // Efeito visual 3D/foco da Imagem 2 (opacidade, brilho e leve escala)
+                slides.forEach((slide) => {
+                    const slideIndex = parseInt(slide.getAttribute('data-index'));
+                    if (slideIndex === currentIndex) {
+                        slide.style.opacity = '1';
+                        slide.style.filter = 'brightness(1)';
+                        slide.style.transform = 'scale(1)';
+                    } else {
+                        slide.style.opacity = '0.5';
+                        slide.style.filter = 'brightness(0.5)';
+                        slide.style.transform = 'scale(0.95)';
+                    }
+                });
 
                 updateDots(currentIndex);
             }
@@ -2040,8 +2052,11 @@
                 startAutoPlay();
             }, { passive: true });
 
-            // Iniciar auto-play
-            updateDots(0);
+            // Iniciar carrossel com foco no slide do meio (Kelly Bonus)
+            // Usamos setTimeout pequeno para dar tempo do navegador renderizar as larguras iniciais
+            setTimeout(() => {
+                goToSlide(1);
+            }, 100);
             startAutoPlay();
         })();
 
