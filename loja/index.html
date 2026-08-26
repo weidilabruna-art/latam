@@ -448,6 +448,21 @@
                         </div>
 </a>
 <div class="flex min-w-0 items-stretch gap-4 md:gap-[18px]">
+<!-- Region/Language selector button -->
+<div class="relative flex items-center">
+<button id="garena-region-btn" type="button" style="display:flex; align-items:center; gap:6px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:20px; color:#e5e7eb; padding:6px 12px; font-size:13px; font-weight:500; cursor:pointer; transition:background 0.2s; white-space:nowrap;">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:14px; height:14px; flex-shrink:0;">
+<circle cx="12" cy="12" r="10"></circle>
+<path stroke-linecap="round" d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"></path>
+</svg>
+<span id="garena-region-label">Resto de LATAM</span>
+<span style="width:1px; height:14px; background:rgba(255,255,255,0.25); margin:0 2px;"></span>
+<span id="garena-lang-label">ES</span>
+<svg fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" style="width:12px; height:12px; flex-shrink:0; opacity:0.7;">
+<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+</svg>
+</button>
+</div>
 <div class="relative flex items-center" data-headlessui-state="">
 <button aria-expanded="false" class="block rounded-full transition-opacity hover:opacity-70" data-headlessui-state="" id="headlessui-popover-button-:r0:" type="button">
 <div class="relative h-[30px] w-[30px]">
@@ -2282,7 +2297,6 @@
 
 <script>
 (function() {
-    // List of regions based on Pagostore
     const regions = [
         { name: "Argentina", code: "ar", flag: "https://flagcdn.com/w40/ar.png" },
         { name: "Bolivia", code: "bo", flag: "https://flagcdn.com/w40/bo.png" },
@@ -2310,29 +2324,28 @@
     const saveBtn = document.getElementById('custom-modal-save-btn');
     const regionGrid = document.getElementById('region-grid');
     const langBtns = document.querySelectorAll('.lang-btn');
+    const regionBtn = document.getElementById('garena-region-btn');
+    const regionLabel = document.getElementById('garena-region-label');
+    const langLabel = document.getElementById('garena-lang-label');
 
-    // Generate countries buttons inside grid
+    // Update header button labels from localStorage
+    function updateHeaderLabels() {
+        if (regionLabel) regionLabel.textContent = selectedRegion;
+        if (langLabel) langLabel.textContent = selectedLang;
+    }
+
+    // Generate country buttons
     function renderRegions() {
         regionGrid.innerHTML = '';
         regions.forEach(r => {
             const btn = document.createElement('button');
-            btn.className = `region-btn ${r.name === selectedRegion ? 'active' : ''}`;
+            btn.className = 'region-btn' + (r.name === selectedRegion ? ' active' : '');
             btn.dataset.region = r.name;
-            
             if (r.isGlobe) {
-                btn.innerHTML = `
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px; height:18px; color:#9ca3af; margin-right:8px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0a9 9 0 01-2.285-8.002 9 9 0 014.57 0A9 9 0 0112 21zM3 12h18"></path>
-                    </svg>
-                    <span>${r.name}</span>
-                `;
+                btn.innerHTML = `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:18px;height:18px;flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><path stroke-linecap="round" d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"></path></svg><span>${r.name}</span>`;
             } else {
-                btn.innerHTML = `
-                    <img src="${r.flag}" alt="${r.name}"/>
-                    <span>${r.name}</span>
-                `;
+                btn.innerHTML = `<img src="${r.flag}" alt="${r.name}" style="width:20px;height:14px;object-fit:cover;border-radius:2px;flex-shrink:0;"/><span>${r.name}</span>`;
             }
-
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -2342,7 +2355,7 @@
         });
     }
 
-    // Set Language handler
+    // Language toggle
     langBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             langBtns.forEach(b => {
@@ -2357,88 +2370,34 @@
         });
     });
 
-    // Update region selector in Garena's Header
-    function updateGarenaHeaderButton() {
-        const elements = Array.from(document.querySelectorAll('header button, header div, header span, [class*="popover"] button'));
-        const targetBtn = elements.find(el => {
-            if (!el.textContent) return false;
-            const txt = el.textContent.trim();
-            return (txt.includes('LATAM') || txt.includes('Colombia') || txt.includes('México') || txt.includes('Argentina') || txt.includes('Chile') || txt.includes('Perú')) && txt.length < 30;
-        });
-
-        if (targetBtn) {
-            let textNodeFound = false;
-            
-            for (let node of targetBtn.childNodes) {
-                if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim().length > 0) {
-                    node.nodeValue = ` ${selectedRegion} ${selectedLang} `;
-                    textNodeFound = true;
-                    break;
-                } else if (node.nodeType === Node.ELEMENT_NODE && node.textContent.trim().length > 0 && node.childNodes.length === 1 && node.firstChild.nodeType === Node.TEXT_NODE) {
-                    node.firstChild.nodeValue = ` ${selectedRegion} ${selectedLang} `;
-                    textNodeFound = true;
-                    break;
+    // Open modal on header button click
+    if (regionBtn) {
+        regionBtn.addEventListener('click', () => {
+            // Sync lang buttons with current selection
+            langBtns.forEach(b => {
+                if (b.dataset.lang === selectedLang) {
+                    b.click();
                 }
-            }
-
-            if (!textNodeFound) {
-                targetBtn.innerHTML = `
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px; height:16px; display:inline-block; vertical-align:-3px; margin-right:4px;">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0a9 9 0 01-2.285-8.002 9 9 0 014.57 0A9 9 0 0112 21zM3 12h18"></path>
-                    </svg>
-                    ${selectedRegion} ${selectedLang}
-                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" style="width:16px; height:16px; display:inline-block; vertical-align:-3px; margin-left:4px;">
-                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                    </svg>
-                `;
-            }
-
-            if (!targetBtn.dataset.customHandlerSet) {
-                targetBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    langBtns.forEach(b => {
-                        if (b.dataset.lang === selectedLang) {
-                            b.click();
-                        }
-                    });
-                    
-                    renderRegions();
-                    backdrop.classList.add('active');
-                }, true);
-                targetBtn.dataset.customHandlerSet = "true";
-            }
-        }
+            });
+            renderRegions();
+            backdrop.classList.add('active');
+        });
     }
 
-    const observer = new MutationObserver((mutations) => {
-        updateGarenaHeaderButton();
-    });
+    // Close modal
+    closeBtn.addEventListener('click', () => backdrop.classList.remove('active'));
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('active'); });
 
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-
-    closeBtn.addEventListener('click', () => {
-        backdrop.classList.remove('active');
-    });
-
-    backdrop.addEventListener('click', (e) => {
-        if (e.target === backdrop) {
-            backdrop.classList.remove('active');
-        }
-    });
-
+    // Save selection
     saveBtn.addEventListener('click', () => {
         localStorage.setItem('selectedLang', selectedLang);
         localStorage.setItem('selectedRegion', selectedRegion);
-        updateGarenaHeaderButton();
+        updateHeaderLabels();
         backdrop.classList.remove('active');
     });
 
-    updateGarenaHeaderButton();
+    // Init header labels
+    updateHeaderLabels();
 })();
 </script>
 
